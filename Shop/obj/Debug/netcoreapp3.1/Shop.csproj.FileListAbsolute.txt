@@ -18,3 +18,7 @@ C:\Users\stoem\Documents\Desenvolvimento\NetCore\7194\Shop\obj\Debug\netcoreapp3
 C:\Users\stoem\Documents\Desenvolvimento\NetCore\7194\Shop\obj\Debug\netcoreapp3.1\Shop.dll
 C:\Users\stoem\Documents\Desenvolvimento\NetCore\7194\Shop\obj\Debug\netcoreapp3.1\Shop.pdb
 C:\Users\stoem\Documents\Desenvolvimento\NetCore\7194\Shop\obj\Debug\netcoreapp3.1\Shop.genruntimeconfig.cache
+C:\Users\stoem\Documents\Desenvolvimento\NetCore\7194\Shop\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.dll
+C:\Users\stoem\Documents\Desenvolvimento\NetCore\7194\Shop\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\stoem\Documents\Desenvolvimento\NetCore\7194\Shop\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.InMemory.dll
+C:\Users\stoem\Documents\Desenvolvimento\NetCore\7194\Shop\obj\Debug\netcoreapp3.1\Shop.csproj.CopyComplete
