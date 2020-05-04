@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\stoem\\Documents\\Desenvolvimento\\netcore\\7194\\Shop\\Shop.csproj": {}
+    "C:\\Users\\stoem\\Documents\\Desenvolvimento\\NetCore\\7194\\Shop\\Shop.csproj": {}
   },
   "projects": {
-    "C:\\Users\\stoem\\Documents\\Desenvolvimento\\netcore\\7194\\Shop\\Shop.csproj": {
+    "C:\\Users\\stoem\\Documents\\Desenvolvimento\\NetCore\\7194\\Shop\\Shop.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\stoem\\Documents\\Desenvolvimento\\netcore\\7194\\Shop\\Shop.csproj",
+        "projectUniqueName": "C:\\Users\\stoem\\Documents\\Desenvolvimento\\NetCore\\7194\\Shop\\Shop.csproj",
         "projectName": "Shop",
-        "projectPath": "C:\\Users\\stoem\\Documents\\Desenvolvimento\\netcore\\7194\\Shop\\Shop.csproj",
+        "projectPath": "C:\\Users\\stoem\\Documents\\Desenvolvimento\\NetCore\\7194\\Shop\\Shop.csproj",
         "packagesPath": "C:\\Users\\stoem\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\stoem\\Documents\\Desenvolvimento\\netcore\\7194\\Shop\\obj\\",
+        "outputPath": "C:\\Users\\stoem\\Documents\\Desenvolvimento\\NetCore\\7194\\Shop\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
