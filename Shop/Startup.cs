@@ -1,4 +1,3 @@
-using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -23,12 +22,12 @@ namespace Shop
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
             //services.AddDbContext<DataContext>(o => o.UseInMemoryDatabase("Database"));
+            services
+                .AddDbContext<DataContext>(o => o
+                    .UseSqlServer(Configuration.GetConnectionString("connectionString")));
 
-
-            services.AddDbContext<DataContext>(o => o.UseSqlServer(Configuration.GetConnectionString("connectionString")));
-
-            var key = Encoding.ASCII.GetBytes(Settings.Secret);
             services
                 .AddAuthentication(o =>
                 {
@@ -42,17 +41,17 @@ namespace Shop
                     o.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(key),
+                        IssuerSigningKey = new SymmetricSecurityKey(Settings.ByteSecretKey),
                         ValidateIssuer = false,
                         ValidateAudience = false
                     };
                 });
 
-            // services
-            //     .AddAuthorization(o => 
-            //     {
-            //         o.AddPolicy("relatorio", p => p.RequireRole("administrador,gerente"));
-            //     });
+            services
+                .AddAuthorization(o =>
+                {
+                    o.AddPolicy("relatorio", p => p.RequireRole("administrador", "gerente"));
+                });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

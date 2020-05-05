@@ -1,7 +1,7 @@
 using System;
+using System.Linq;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using Shop.Models;
 
@@ -16,16 +16,23 @@ namespace Shop.Services
             {
                 Subject = new ClaimsIdentity(new Claim[]
                     {
-                        new Claim(ClaimTypes.Name, user.Id.ToString()),
-                        new Claim(ClaimTypes.Role, user.Role.ToString())
+                        new Claim(ClaimTypes.Name, user.Id.ToString())
                     }
                 ),
                 Expires = DateTime.UtcNow.AddDays(20),
                 SigningCredentials = new SigningCredentials(
-                    new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Settings.Secret)),
+                    new SymmetricSecurityKey(Settings.ByteSecretKey),
                     SecurityAlgorithms.HmacSha256Signature
                 )
             };
+            user.Role
+                .Split(",")
+                .ToList()
+                .ForEach(o => tokenDescriptor
+                    .Subject
+                    .AddClaim(new Claim(ClaimTypes.Role, o.ToString()))
+                );
+
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
         }
