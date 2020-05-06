@@ -10,7 +10,8 @@ using Shop.Services;
 namespace Shop.Controllers
 {
     [Route("users")]
-    public class UserController : Controller
+    [Route("v1/users")]
+    public class UserController : ControllerBase
     {
         [HttpGet]
         [Route("")]
@@ -38,8 +39,10 @@ namespace Shop.Controllers
 
             try
             {
+                model.Role = "employee";
                 context.Users.Add(model);
                 await context.SaveChangesAsync();
+                model.Password = string.Empty;
                 return Ok(model);
             }
             catch
@@ -87,8 +90,8 @@ namespace Shop.Controllers
                 return NotFound(new { message = "Usuário ou senha inválidos" });
 
             var token = TokenService.GenerateToken(user);
+            user.Password = string.Empty;
             return new { user, token };
         }
-
     }
 }

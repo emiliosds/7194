@@ -23,7 +23,7 @@ namespace Shop.Models
         [MaxLength(1024)]
         public string Description { get; set; }
 
-        [Column("Price")]
+        [Column("Price",TypeName = "decimal(18,4)")]
         [DataType("decimal")]
         [Required(ErrorMessage = "Este campo é obrigatório")]
         [Range(1, int.MaxValue, ErrorMessage = "O preço deve ser maior que zero")]

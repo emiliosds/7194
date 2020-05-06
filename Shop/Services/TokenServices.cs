@@ -16,10 +16,10 @@ namespace Shop.Services
             {
                 Subject = new ClaimsIdentity(new Claim[]
                     {
-                        new Claim(ClaimTypes.Name, user.Id.ToString())
+                        new Claim(ClaimTypes.Name, user.Username.ToString())
                     }
                 ),
-                Expires = DateTime.UtcNow.AddDays(20),
+                Expires = DateTime.UtcNow.AddDays(1),
                 SigningCredentials = new SigningCredentials(
                     new SymmetricSecurityKey(Settings.ByteSecretKey),
                     SecurityAlgorithms.HmacSha256Signature
