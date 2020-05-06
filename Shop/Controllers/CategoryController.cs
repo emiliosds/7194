@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Shop.Data;
@@ -13,7 +14,8 @@ namespace Shop.Controllers
     {
         [HttpGet]
         [Route("")]
-        public async Task<ActionResult<List<Category>>> Get([FromServices]DataContext context)
+        [AllowAnonymous]
+        public async Task<ActionResult<List<Category>>> Get([FromServices] DataContext context)
         {
             var categories = await context.Categories.AsNoTracking().ToListAsync();
             return Ok(categories);
@@ -21,9 +23,10 @@ namespace Shop.Controllers
 
         [HttpGet]
         [Route("{id:int}")]
+        [AllowAnonymous]
         public async Task<ActionResult<Category>> GetById(
             int id,
-            [FromServices]DataContext context)
+            [FromServices] DataContext context)
         {
             var category = await context.Categories.AsNoTracking().FirstOrDefaultAsync(o => o.Id == id);
             return Ok(category);
@@ -31,9 +34,10 @@ namespace Shop.Controllers
 
         [HttpPost]
         [Route("")]
+        [Authorize(Roles = "employee")]
         public async Task<ActionResult<Category>> Post(
-            [FromBody]Category model,
-            [FromServices]DataContext context)
+            [FromBody] Category model,
+            [FromServices] DataContext context)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -52,10 +56,11 @@ namespace Shop.Controllers
 
         [HttpPut]
         [Route("{id:int}")]
+        [Authorize(Roles = "employee")]
         public async Task<ActionResult<Category>> Put(
             int id,
-            [FromBody]Category model,
-            [FromServices]DataContext context)
+            [FromBody] Category model,
+            [FromServices] DataContext context)
         {
             if (id != model.Id)
                 return NotFound(new { message = "Categoria não encontrada" });
@@ -77,9 +82,10 @@ namespace Shop.Controllers
 
         [HttpDelete]
         [Route("{id:int}")]
+        [Authorize(Roles = "employee")]
         public async Task<ActionResult<Category>> Delete(
             int id,
-            [FromServices]DataContext context)
+            [FromServices] DataContext context)
         {
             var category = await context.Categories.FirstOrDefaultAsync(o => o.Id == id);
             if (category == null)

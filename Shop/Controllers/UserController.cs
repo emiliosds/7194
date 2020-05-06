@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Shop.Data;
@@ -10,12 +12,26 @@ namespace Shop.Controllers
     [Route("users")]
     public class UserController : Controller
     {
+        [HttpGet]
         [Route("")]
+        [Authorize(Roles = "manager")]
+        public async Task<ActionResult<List<User>>> Get([FromServices] DataContext context)
+        {
+            var users = await context
+                .Users
+                .AsNoTracking()
+                .ToListAsync();
+
+            return Ok(users);
+        }
+
         [HttpPost]
+        [Route("")]
+        [AllowAnonymous]
         public async Task<ActionResult<User>> Post(
-            [FromBody]User model,
-            [FromServices]DataContext context
-        )
+                    [FromBody] User model,
+                    [FromServices] DataContext context
+                )
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -32,11 +48,34 @@ namespace Shop.Controllers
             }
         }
 
-        [Route("login")]
+        [HttpPut]
+        [Route("{id:int}")]
+        [Authorize(Roles = "manager")]
+        public async Task<ActionResult<User>> Put(int id, [FromBody] User model, [FromServices] DataContext context)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            if (model.Id != id)
+                return NotFound(new { message = "Usuário não encontrado" });
+
+            try
+            {
+                context.Entry(model).State = EntityState.Modified;
+                await context.SaveChangesAsync();
+                return Ok(model);
+            }
+            catch
+            {
+                return BadRequest(new { message = "Não foi possivel atualizar o usuário" });
+            }
+        }
+
         [HttpPost]
+        [Route("login")]
         public async Task<ActionResult<dynamic>> Authenticate(
-            [FromBody]User model,
-            [FromServices]DataContext context
+            [FromBody] User model,
+            [FromServices] DataContext context
         )
         {
             var user = await context
