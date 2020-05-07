@@ -9,8 +9,7 @@ using Shop.Models;
 
 namespace Shop.Controllers
 {
-    [Route("categories")]
-    //[Route("v1/categories")]
+    [Route("v1/categories")]
     public class CategoryController : ControllerBase
     {
         [HttpGet]
@@ -20,7 +19,7 @@ namespace Shop.Controllers
         public async Task<ActionResult<List<Category>>> Get([FromServices] DataContext context)
         {
             var categories = await context.Categories.AsNoTracking().ToListAsync();
-            return Ok(new{categories,Data = DateTime.Now.ToLongTimeString()});  
+            return Ok(categories);
         }
 
         [HttpGet]

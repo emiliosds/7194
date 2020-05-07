@@ -1,11 +1,17 @@
+using System;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Shop.Controllers
 {
-    [Route("autenticacao")]
-    public class AutenticacaoController : ControllerBase
+    [Route("v1/Lab")]
+    public class LabController : ControllerBase
     {
+        [HttpGet]
+        [Route("cache")]
+        [AllowAnonymous]
+        public string Cache() => DateTime.Now.ToLongTimeString();
+
         [HttpGet]
         [Route("anonimo")]
         [AllowAnonymous]
