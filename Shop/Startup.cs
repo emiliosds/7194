@@ -46,10 +46,10 @@ namespace Shop
 
             services.AddControllers();
 
-            services.AddDbContext<DataContext>(o => o.UseInMemoryDatabase("Database"));
-            //services
-                //.AddDbContext<DataContext>(o => o
-                    //.UseSqlServer(Configuration.GetConnectionString("connectionString")));
+            //services.AddDbContext<DataContext>(o => o.UseInMemoryDatabase("Database"));
+            services
+                .AddDbContext<DataContext>(o => o
+                    .UseSqlServer(Configuration.GetConnectionString("connectionString")));
 
             services
                 .AddAuthentication(o =>
